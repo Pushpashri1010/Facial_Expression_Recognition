@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facial Emotion Recognition</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>😊 Facial Emotion Recognition</h1>
+
+    <p class="subtitle">
+        Upload a facial image and let the CNN detect the emotion.
+    </p>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        <input
+            type="file"
+            name="image"
+            accept="image/*"
+            required>
+
+        <br><br>
+
+        <button type="submit">
+            Predict Emotion
+        </button>
+
+    </form>
+
+    {% if image_path %}
+
+    <div class="result">
+
+        <h2>Uploaded Image</h2>
+
+        <img src="{{ image_path }}"
+             class="preview">
+
+    </div>
+
+    {% endif %}
+
+    {% if emotion %}
+
+    <div class="result">
+
+        <h2>Detected Emotion</h2>
+
+        <div class="emotion">
+
+            {{ emotion }}
+
+        </div>
+
+        <div class="confidence">
+
+            Confidence : <b>{{ confidence }}%</b>
+
+        </div>
+
+        <div class="progress">
+
+            <div class="progress-bar"
+                 style="width: {{ confidence }}%;">
+
+                {{ confidence }}%
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+    {% if message %}
+
+    <div class="message">
+
+        {{ message }}
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>
